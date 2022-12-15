@@ -8,7 +8,9 @@ class App {
   #bridgeGame;
   #bridgeShapeArray;
   #userMoveArray;
-  #result;
+  #upPatten;
+  #downPatten;
+  #resultString;
   constructor() {
     this.handlingBridgeSize = this.handlingBridgeSize.bind(this);
     this.handlingReadMoving = this.handlingReadMoving.bind(this);
@@ -28,12 +30,15 @@ class App {
 
   handlingReadMoving(userMove) {
     this.validateUserMove(userMove);
-    const [bridge, move, resultBoolean] = this.#bridgeGame.move(userMove);
-    [this.#bridgeShapeArray, this.#userMoveArray, this.#result] = [
-      bridge,
-      move,
-      resultBoolean,
-    ];
+    const [bridge, move, upPatten, downPatten, resultString] =
+      this.#bridgeGame.move(userMove);
+    [
+      this.#bridgeShapeArray,
+      this.#userMoveArray,
+      this.#upPatten,
+      this.#downPatten,
+      this.#resultString,
+    ] = [bridge, move, upPatten, downPatten, resultString];
   }
 
   validateBridgeSize(size) {
