@@ -3,6 +3,7 @@
  */
 const BridgeMaker = require('./BridgeMaker');
 const BridgeRandomNumberGenerator = require('./BridgeRandomNumberGenerator');
+const { GAME_STATUS } = require('./constants');
 
 class BridgeGame {
   #bridgeShape;
@@ -21,17 +22,51 @@ class BridgeGame {
    */
   move(userMove) {
     this.#userMoveArray.push(userMove);
-    let result;
+    let resultString;
+    let upPatten;
+    let downPatten;
+    if (this.#bridgeShape[this.#userMoveArray.length - 1] === GAME_STATUS.UP) {
+      if (
+        this.#userMoveArray[this.#userMoveArray.length - 1] === GAME_STATUS.UP
+      ) {
+        upPatten = GAME_STATUS.POSSIBLE;
+        downPatten = GAME_STATUS.SPACE;
+      } else {
+        upPatten = GAME_STATUS.SPACE;
+        downPatten = GAME_STATUS.IMPOSSIBLE;
+      }
+    }
+
+    if (
+      this.#bridgeShape[this.#userMoveArray.length - 1] === GAME_STATUS.DOWN
+    ) {
+      if (
+        this.#userMoveArray[this.#userMoveArray.length - 1] === GAME_STATUS.DOWN
+      ) {
+        upPatten = GAME_STATUS.SPACE;
+        downPatten = GAME_STATUS.POSSIBLE;
+      } else {
+        upPatten = GAME_STATUS.SPACE;
+        downPatten = GAME_STATUS.IMPOSSIBLE;
+      }
+    }
+
     if (
       this.#bridgeShape[this.#userMoveArray.length - 1] !==
       this.#userMoveArray[this.#userMoveArray.length - 1]
     ) {
-      result = false;
+      resultString = '실패';
     } else {
-      result = true;
+      resultString = '성공';
     }
 
-    return [this.#bridgeShape, this.#userMoveArray, result];
+    return [
+      this.#bridgeShape,
+      this.#userMoveArray,
+      upPatten,
+      downPatten,
+      resultString,
+    ];
   }
 
   /**
