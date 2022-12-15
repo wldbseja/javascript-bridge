@@ -8,6 +8,7 @@ class App {
   #bridgeGame;
   #bridgeShapeArray;
   #userMoveArray;
+  #retryCount;
   #upPatten;
   #downPatten;
   #resultString;
@@ -31,15 +32,16 @@ class App {
 
   handlingReadMoving(userMove) {
     this.validateUserMove(userMove);
-    const [bridge, move, upPatten, downPatten, resultString] =
+    const [bridge, move, retryCount, upPatten, downPatten, resultString] =
       this.#bridgeGame.move(userMove);
     [
       this.#bridgeShapeArray,
       this.#userMoveArray,
+      this.#retryCount,
       this.#upPatten,
       this.#downPatten,
       this.#resultString,
-    ] = [bridge, move, upPatten, downPatten, resultString];
+    ] = [bridge, move, retryCount, upPatten, downPatten, resultString];
 
     if (resultString === '성공') {
       OutputView.printMap(this.#upPatten, this.#downPatten);
@@ -56,7 +58,11 @@ class App {
       this.#bridgeGame.retry();
       InputView.readMoving(this.handlingReadMoving);
     } else {
-      OutputView.printResult();
+      OutputView.printResult(
+        this.#upPatten,
+        this.#downPatten,
+        this.#retryCount
+      );
       InputView.close();
     }
   }
