@@ -39,8 +39,17 @@ class App {
       this.#downPatten,
       this.#resultString,
     ] = [bridge, move, upPatten, downPatten, resultString];
-    OutputView.printMap(this.#upPatten, this.#downPatten);
+
+    if (resultString === '성공') {
+      OutputView.printMap(this.#upPatten, this.#downPatten);
+      InputView.readMoving(this.handlingReadMoving);
+    } else {
+      OutputView.printMap(this.#upPatten, this.#downPatten);
+      InputView.readGameCommand(this.handlingGameCommand);
+    }
   }
+
+  handlingGameCommand(retry) {}
 
   validateBridgeSize(size) {
     if (!(size >= 3 && size <= 20 && size % 1 == 0)) {
