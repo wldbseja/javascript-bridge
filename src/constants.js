@@ -13,5 +13,20 @@ const ERROR_PRINT_STRING = {
   ERROR_BRIDGE_SIZE: '[ERROR] 다리 길이는 3부터 20 사이의 숫자여야 합니다.',
   ERROR_USER_INPUT: '[ERROR] 올바른 입력이 아닙니다.',
 };
-
-module.exports = { PRINT_STRING, ERROR_PRINT_STRING };
+const GAME_STATUS = {
+  UP: 'U',
+  DOWN: 'D',
+  RETRY: 'R',
+  QUIT: 'Q',
+  MIN_BOUND: 3,
+  MAX_BOUND: 20,
+  START: ' [',
+  END: ' ]',
+  LINE: ' | ',
+  POSSIBLE: 'O',
+  IMPOSSIBLE: 'X',
+  SPACE: ' ',
+  WIN: '성공',
+  LOSE: '실패',
+};
+module.exports = { PRINT_STRING, ERROR_PRINT_STRING, GAME_STATUS };
