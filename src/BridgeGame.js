@@ -23,6 +23,7 @@ class BridgeGame {
    */
   move(userMove) {
     this.#userMoveArray.push(userMove);
+    this.retryCount = 1;
     let resultString;
     let upPatten;
     let downPatten;
@@ -64,6 +65,7 @@ class BridgeGame {
     return [
       this.#bridgeShape,
       this.#userMoveArray,
+      this.retryCount,
       upPatten,
       downPatten,
       resultString,
