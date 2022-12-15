@@ -25,6 +25,10 @@ const InputView = {
   readGameCommand(callback) {
     MissionUtils.Console.readLine(PRINT_STRING.INPUT_GAME_RETRY, callback);
   },
+
+  close() {
+    MissionUtils.Console.close();
+  },
 };
 
 module.exports = InputView;
