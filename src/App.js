@@ -39,6 +39,7 @@ class App {
       this.#downPatten,
       this.#resultString,
     ] = [bridge, move, upPatten, downPatten, resultString];
+    OutputView.printMap(this.#upPatten, this.#downPatten);
   }
 
   validateBridgeSize(size) {
