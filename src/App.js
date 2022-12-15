@@ -8,6 +8,7 @@ class App {
   #bridgeGame;
   constructor() {
     this.handlingBridgeSize = this.handlingBridgeSize.bind(this);
+    this.handlingReadMoving = this.handlingReadMoving.bind(this);
   }
 
   play() {
@@ -19,7 +20,10 @@ class App {
     const size = Number(number);
     this.validateBridgeSize(size);
     this.#bridgeGame = new BridgeGame(size);
+    InputView.readMoving(this.handlingReadMoving);
   }
+
+  handlingReadMoving(userMove) {}
 
   validateBridgeSize(size) {
     if (!(size >= 3 && size <= 20 && size % 1 == 0)) {
