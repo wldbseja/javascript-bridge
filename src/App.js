@@ -14,6 +14,7 @@ class App {
   constructor() {
     this.handlingBridgeSize = this.handlingBridgeSize.bind(this);
     this.handlingReadMoving = this.handlingReadMoving.bind(this);
+    this.handlingGameCommand = this.handlingGameCommand.bind(this);
   }
 
   play() {
@@ -49,7 +50,9 @@ class App {
     }
   }
 
-  handlingGameCommand(retry) {}
+  handlingGameCommand(retry) {
+    this.validateRetry(retry);
+  }
 
   validateBridgeSize(size) {
     if (!(size >= 3 && size <= 20 && size % 1 == 0)) {
@@ -59,6 +62,11 @@ class App {
 
   validateUserMove(userMove) {
     if (!(userMove === 'U' || userMove === 'D'))
+      throw Error(ERROR_PRINT_STRING.ERROR_USER_INPUT);
+  }
+
+  validateRetry(retry) {
+    if (!(retry === 'R' || retry === 'Q'))
       throw Error(ERROR_PRINT_STRING.ERROR_USER_INPUT);
   }
 }
