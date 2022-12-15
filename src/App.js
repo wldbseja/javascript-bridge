@@ -61,7 +61,8 @@ class App {
       OutputView.printResult(
         this.#upPatten,
         this.#downPatten,
-        this.#retryCount
+        this.#retryCount,
+        this.#resultString
       );
       InputView.close();
     }
