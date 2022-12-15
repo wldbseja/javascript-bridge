@@ -6,6 +6,9 @@ const { ERROR_PRINT_STRING } = require('./constants');
 
 class App {
   #bridgeGame;
+  #bridgeShapeArray;
+  #userMoveArray;
+  #result;
   constructor() {
     this.handlingBridgeSize = this.handlingBridgeSize.bind(this);
     this.handlingReadMoving = this.handlingReadMoving.bind(this);
@@ -25,6 +28,12 @@ class App {
 
   handlingReadMoving(userMove) {
     this.validateUserMove(userMove);
+    const [bridge, move, resultBoolean] = this.#bridgeGame.move(userMove);
+    [this.#bridgeShapeArray, this.#userMoveArray, this.#result] = [
+      bridge,
+      move,
+      resultBoolean,
+    ];
   }
 
   validateBridgeSize(size) {
