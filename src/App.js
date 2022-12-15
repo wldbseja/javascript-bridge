@@ -52,6 +52,13 @@ class App {
 
   handlingGameCommand(retry) {
     this.validateRetry(retry);
+    if (retry === 'R') {
+      this.#bridgeGame.retry();
+      InputView.readMoving(this.handlingReadMoving);
+    } else {
+      OutputView.printResult();
+      InputView.close();
+    }
   }
 
   validateBridgeSize(size) {
