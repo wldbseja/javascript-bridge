@@ -23,12 +23,19 @@ class App {
     InputView.readMoving(this.handlingReadMoving);
   }
 
-  handlingReadMoving(userMove) {}
+  handlingReadMoving(userMove) {
+    this.validateUserMove(userMove);
+  }
 
   validateBridgeSize(size) {
     if (!(size >= 3 && size <= 20 && size % 1 == 0)) {
       throw Error(ERROR_PRINT_STRING.ERROR_BRIDGE_SIZE);
     }
+  }
+
+  validateUserMove(userMove) {
+    if (!(userMove === 'U' || userMove === 'D'))
+      throw Error(ERROR_PRINT_STRING.ERROR_USER_INPUT);
   }
 }
 
