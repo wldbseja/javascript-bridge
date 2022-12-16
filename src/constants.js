@@ -19,6 +19,8 @@ const GAME_ITEM = {
   DOWN: 'D',
   RETRY: 'R',
   QUIT: 'Q',
+  ZERO: 0,
+  ONE: 1,
   MIN_BOUND: 3,
   MAX_BOUND: 20,
   START: ' [',
