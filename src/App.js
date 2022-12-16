@@ -10,8 +10,9 @@ class App {
 
   handlingBridgeSize(size) {
     try {
-    } catch (error) {
       MissionUtils.Console.print(ERROR_PRINT_STRING.ERROR_BRIDGE_SIZE);
+      InputView.readBridgeSize(this.handlingBridgeSize);
+    } catch (error) {
       this.validateRangeSize(size);
     }
   }
