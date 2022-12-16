@@ -39,14 +39,20 @@ describe('게임 기능 테스트', () => {
     BridgeRandomNumberGenerator.generate.mockReturnValue([1, 1, 1]);
     const bridgeGame = new BridgeGame(3);
 
-    expect(bridgeGame.makePattern('D')).toEqual([[' '], ['X']]);
+    expect(bridgeGame.makePattern('D')).toEqual([
+      [' '],
+      ['X'],
+      ['U', 'U', 'U'],
+    ]);
     expect(bridgeGame.makePattern('D')).toEqual([
       [' ', ' '],
       ['X', 'X'],
+      ['U', 'U', 'U'],
     ]);
     expect(bridgeGame.makePattern('U')).toEqual([
       [' ', ' ', 'O'],
       ['X', 'X', ' '],
+      ['U', 'U', 'U'],
     ]);
   });
 });
