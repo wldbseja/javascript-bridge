@@ -3,21 +3,55 @@
  */
 const BridgeRandomNumberGenerator = require('./BridgeRandomNumberGenerator');
 const BridgeMaker = require('./BridgeMaker');
+const { GAME_ITEM } = require('./constants');
 
 class BridgeGame {
   #randomBridge;
+  #upPattern;
+  #downPattern;
+  #tryCount;
+  #userBridge;
   constructor(size) {
     this.#randomBridge = BridgeMaker.makeBridge(
       size,
       BridgeRandomNumberGenerator.generate
     );
+    this.#tryCount = 1;
+    this.#upPattern = [];
+    this.#downPattern = [];
+    this.#userBridge = [];
   }
   /**
    * 사용자가 칸을 이동할 때 사용하는 메서드
    * <p>
    * 이동을 위해 필요한 메서드의 반환 값(return value), 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
    */
-  move() {}
+  makePattern(userMove) {
+    this.#userBridge.push(userMove);
+
+    for (let i = 0; i < this.#userBridge.length; i++) {
+      if (this.#userBridge[i] === this.#randomBridge[i]) {
+        if (this.#userBridge[i] === GAME_ITEM.UP) {
+          this.#upPattern.push(GAME_ITEM.POSSIBLE);
+          this.#downPattern.push(GAME_ITEM.SPACE);
+        } else {
+          this.#upPattern.push(GAME_ITEM.SPACE);
+          this.#downPattern.push(GAME_ITEM.POSSIBLE);
+        }
+      } else {
+        if (this.#userBridge[i] === GAME_ITEM.UP) {
+          this.#upPattern.push(GAME_ITEM.IMPOSSIBLE);
+          this.#downPattern.push(GAME_ITEM.SPACE);
+        } else {
+          this.#upPattern.push(GAME_ITEM.SPACE);
+          this.#downPattern.push(GAME_ITEM.IMPOSSIBLE);
+        }
+      }
+    }
+    return [this.#upPattern, this.#downPattern, this.#userBridge];
+  }
+
+  move(move) {}
 
   /**
    * 사용자가 게임을 다시 시도할 때 사용하는 메서드
