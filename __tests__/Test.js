@@ -1,5 +1,7 @@
 const App = require('../src/App');
 const BridgeMaker = require('../src/BridgeMaker');
+const BridgeGame = require('../src/BridgeGame');
+const BridgeRandomNumberGenerator = require('../src/BridgeRandomNumberGenerator');
 
 describe('게임 기능 테스트', () => {
   test('validateRangeSize', () => {
@@ -30,5 +32,21 @@ describe('게임 기능 테스트', () => {
     };
     randomNum = randomNumber.generateNumber;
     expect(BridgeMaker.makeBridge(3, randomNum)).toEqual(['U', 'U', 'U']);
+  });
+
+  test('BridgeGame - makePattern', () => {
+    BridgeRandomNumberGenerator.generate = jest.fn();
+    BridgeRandomNumberGenerator.generate.mockReturnValue([1, 1, 1]);
+    const bridgeGame = new BridgeGame(3);
+
+    expect(bridgeGame.makePattern('D')).toEqual([[' '], ['X']]);
+    expect(bridgeGame.makePattern('D')).toEqual([
+      [' ', ' '],
+      ['X', 'X'],
+    ]);
+    expect(bridgeGame.makePattern('U')).toEqual([
+      [' ', ' ', 'O'],
+      ['X', 'X', ' '],
+    ]);
   });
 });
