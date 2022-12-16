@@ -28,13 +28,13 @@ class BridgeGame {
    */
   makePattern(userMove) {
     this.#userBridge.push(userMove);
-
     for (let i = 0; i < [userMove].length; i++) {
       if ([userMove][i] === this.#randomBridge[i]) {
         if ([userMove][i] === GAME_ITEM.UP) {
           this.#upPattern.push(GAME_ITEM.POSSIBLE);
           this.#downPattern.push(GAME_ITEM.SPACE);
-        } else {
+        }
+        if ([userMove][i] === GAME_ITEM.DOWN) {
           this.#upPattern.push(GAME_ITEM.SPACE);
           this.#downPattern.push(GAME_ITEM.POSSIBLE);
         }
@@ -42,7 +42,8 @@ class BridgeGame {
         if ([userMove][i] === GAME_ITEM.UP) {
           this.#upPattern.push(GAME_ITEM.IMPOSSIBLE);
           this.#downPattern.push(GAME_ITEM.SPACE);
-        } else {
+        }
+        if ([userMove][i] === GAME_ITEM.DOWN) {
           this.#upPattern.push(GAME_ITEM.SPACE);
           this.#downPattern.push(GAME_ITEM.IMPOSSIBLE);
         }
