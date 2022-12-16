@@ -61,7 +61,7 @@ class BridgeGame {
       resultString = '성공';
     }
 
-    return resultString;
+    return [resultString, this.#tryCount];
   }
 
   /**
