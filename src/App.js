@@ -5,6 +5,7 @@ const BridgeGame = require('./BridgeGame');
 const { GAME_ITEM, ERROR_PRINT_STRING } = require('./constants');
 
 class App {
+  #bridgeGame;
   constructor() {
     this.handlingBridgeSize = this.handlingBridgeSize.bind(this);
   }
@@ -12,6 +13,7 @@ class App {
   handlingBridgeSize(size) {
     try {
       this.validateRangeSize(size);
+      this.#bridgeGame = new BridgeGame(size);
     } catch (error) {
       MissionUtils.Console.print(ERROR_PRINT_STRING.ERROR_BRIDGE_SIZE);
       InputView.readBridgeSize(this.handlingBridgeSize);
