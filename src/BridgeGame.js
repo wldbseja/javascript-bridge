@@ -29,9 +29,9 @@ class BridgeGame {
   makePattern(userMove) {
     this.#userBridge.push(userMove);
 
-    for (let i = 0; i < this.#userBridge.length; i++) {
-      if (this.#userBridge[i] === this.#randomBridge[i]) {
-        if (this.#userBridge[i] === GAME_ITEM.UP) {
+    for (let i = 0; i < [userMove].length; i++) {
+      if ([userMove][i] === this.#randomBridge[i]) {
+        if ([userMove][i] === GAME_ITEM.UP) {
           this.#upPattern.push(GAME_ITEM.POSSIBLE);
           this.#downPattern.push(GAME_ITEM.SPACE);
         } else {
@@ -39,7 +39,7 @@ class BridgeGame {
           this.#downPattern.push(GAME_ITEM.POSSIBLE);
         }
       } else {
-        if (this.#userBridge[i] === GAME_ITEM.UP) {
+        if ([userMove][i] === GAME_ITEM.UP) {
           this.#upPattern.push(GAME_ITEM.IMPOSSIBLE);
           this.#downPattern.push(GAME_ITEM.SPACE);
         } else {
@@ -48,10 +48,10 @@ class BridgeGame {
         }
       }
     }
-    return [this.#upPattern, this.#downPattern, this.#userBridge];
+    return [this.#upPattern, this.#downPattern];
   }
 
-  move(move) {}
+  move() {}
 
   /**
    * 사용자가 게임을 다시 시도할 때 사용하는 메서드
