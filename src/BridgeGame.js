@@ -11,6 +11,7 @@ class BridgeGame {
   #downPattern;
   #tryCount;
   #userBridge;
+  #resultArray;
   constructor(size) {
     this.#randomBridge = BridgeMaker.makeBridge(
       size,
@@ -20,6 +21,7 @@ class BridgeGame {
     this.#upPattern = [];
     this.#downPattern = [];
     this.#userBridge = [];
+    this.#resultArray = [];
   }
   /**
    * 사용자가 칸을 이동할 때 사용하는 메서드
@@ -53,19 +55,23 @@ class BridgeGame {
         this.#downPattern.push(GAME_ITEM.SPACE);
       }
     }
-    return [this.#upPattern, this.#downPattern, this.#randomBridge];
+    return [
+      this.#upPattern,
+      this.#downPattern,
+      this.#randomBridge,
+      this.#userBridge,
+    ];
   }
 
   move() {
-    let resultString;
     const lastIndex = this.#userBridge.length - 1;
     if (this.#randomBridge[lastIndex] !== this.#userBridge[lastIndex]) {
-      resultString = '실패';
+      this.#resultArray.push('실패');
     } else {
-      resultString = '성공';
+      this.#resultArray.push('성공');
     }
 
-    return [resultString, this.#tryCount];
+    return [this.#resultArray, this.#tryCount];
   }
 
   /**
