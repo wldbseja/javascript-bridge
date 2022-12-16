@@ -6,6 +6,9 @@ const { GAME_ITEM, ERROR_PRINT_STRING } = require('./constants');
 
 class App {
   #bridgeGame;
+  #userBridge;
+  #upPattern;
+  #downPattern;
   constructor() {
     this.handlingBridgeSize = this.handlingBridgeSize.bind(this);
     this.handlingMoving = this.handlingMoving.bind(this);
@@ -28,7 +31,10 @@ class App {
     } catch (error) {
       MissionUtils.Console.print(ERROR_PRINT_STRING.ERROR_USER_INPUT);
       InputView.readMoving(this.handlingMoving);
+      return;
     }
+    [this.#upPattern, this.#downPattern, this.#userBridge] =
+      this.#bridgeGame.makePattern(move);
   }
 
   play() {
