@@ -9,7 +9,11 @@ class App {
   }
 
   handlingBridgeSize(size) {
-    this.validateRangeSize(size);
+    try {
+    } catch (error) {
+      MissionUtils.Console.print(ERROR_PRINT_STRING.ERROR_BRIDGE_SIZE);
+      this.validateRangeSize(size);
+    }
   }
 
   play() {
