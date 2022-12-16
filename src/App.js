@@ -6,8 +6,6 @@ const { ERROR_PRINT_STRING } = require('./constants');
 
 class App {
   #bridgeGame;
-  #bridgeShapeArray;
-  #userMoveArray;
   #retryCount;
   #upPatten;
   #downPatten;
@@ -32,18 +30,10 @@ class App {
 
   handlingReadMoving(userMove) {
     this.validateUserMove(userMove);
-    const [bridge, move, retryCount, upPatten, downPatten, resultString] =
+    [this.#retryCount, this.#upPatten, this.#downPatten, this.#resultString] =
       this.#bridgeGame.move(userMove);
-    [
-      this.#bridgeShapeArray,
-      this.#userMoveArray,
-      this.#retryCount,
-      this.#upPatten,
-      this.#downPatten,
-      this.#resultString,
-    ] = [bridge, move, retryCount, upPatten, downPatten, resultString];
 
-    if (resultString === '성공') {
+    if (this.#resultString === '성공') {
       OutputView.printMap(this.#upPatten, this.#downPatten);
       InputView.readMoving(this.handlingReadMoving);
     } else {
@@ -84,5 +74,6 @@ class App {
       throw Error(ERROR_PRINT_STRING.ERROR_USER_INPUT);
   }
 }
-
+const app = new App();
+app.play();
 module.exports = App;

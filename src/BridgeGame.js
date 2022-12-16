@@ -8,51 +8,67 @@ const { GAME_STATUS } = require('./constants');
 class BridgeGame {
   #bridgeShape;
   #userMoveArray;
+  #retryCount;
+  #upPattern;
+  #downPattern;
   constructor(size) {
     this.#bridgeShape = BridgeMaker.makeBridge(
       size,
       BridgeRandomNumberGenerator.generate
     );
     this.#userMoveArray = [];
-    this.retryCount = 0;
+    this.#retryCount = 1;
+    this.#upPattern = [];
+    this.#downPattern = [];
   }
   /**
    * 사용자가 칸을 이동할 때 사용하는 메서드
    * <p>
    * 이동을 위해 필요한 메서드의 반환 값(return value), 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
    */
+  makePattern(bridgeShape, userMoveArray) {
+    this.#userMoveArray.push(userMoveArray);
+    console.log(bridgeShape, userMoveArray, this.#userMoveArray);
+    for (let i = 0; i < userMoveArray.length; i++) {
+      console.log(
+        userMoveArray[i] === bridgeShape[i],
+        userMoveArray[i],
+        bridgeShape[i]
+      );
+      if (userMoveArray[i] === bridgeShape[i]) {
+        if (userMoveArray[i] === GAME_STATUS.UP) {
+          this.#upPattern.push(GAME_STATUS.POSSIBLE);
+          this.#downPattern.push(GAME_STATUS.SPACE);
+        } else {
+          this.#upPattern.push(GAME_STATUS.SPACE);
+          this.#downPattern.push(GAME_STATUS.POSSIBLE);
+        }
+      } else {
+        // D 일때 U
+        // [ x ]
+        // [   ]
+        if (userMoveArray[i] === GAME_STATUS.UP) {
+          this.#upPattern.push(GAME_STATUS.IMPOSSIBLE);
+          this.#downPattern.push(GAME_STATUS.SPACE);
+          // U 일때 D
+          // [   ]
+          // [ x ]
+        }
+        if (userMoveArray[i] === GAME_STATUS.DOWN) {
+          this.#upPattern.push(GAME_STATUS.SPACE);
+          this.#downPattern.push(GAME_STATUS.IMPOSSIBLE);
+        }
+      }
+    }
+  }
+
   move(userMove) {
-    this.#userMoveArray.push(userMove);
-    this.retryCount = 1;
+    this.makePattern(this.#bridgeShape, userMove);
+    console.log(
+      this.#bridgeShape[this.#userMoveArray.length - 1],
+      this.#userMoveArray[this.#userMoveArray.length - 1]
+    );
     let resultString;
-    let upPatten;
-    let downPatten;
-    if (this.#bridgeShape[this.#userMoveArray.length - 1] === GAME_STATUS.UP) {
-      if (
-        this.#userMoveArray[this.#userMoveArray.length - 1] === GAME_STATUS.UP
-      ) {
-        upPatten = GAME_STATUS.POSSIBLE;
-        downPatten = GAME_STATUS.SPACE;
-      } else {
-        upPatten = GAME_STATUS.SPACE;
-        downPatten = GAME_STATUS.IMPOSSIBLE;
-      }
-    }
-
-    if (
-      this.#bridgeShape[this.#userMoveArray.length - 1] === GAME_STATUS.DOWN
-    ) {
-      if (
-        this.#userMoveArray[this.#userMoveArray.length - 1] === GAME_STATUS.DOWN
-      ) {
-        upPatten = GAME_STATUS.SPACE;
-        downPatten = GAME_STATUS.POSSIBLE;
-      } else {
-        upPatten = GAME_STATUS.SPACE;
-        downPatten = GAME_STATUS.IMPOSSIBLE;
-      }
-    }
-
     if (
       this.#bridgeShape[this.#userMoveArray.length - 1] !==
       this.#userMoveArray[this.#userMoveArray.length - 1]
@@ -61,15 +77,13 @@ class BridgeGame {
     } else {
       resultString = '성공';
     }
-
-    return [
-      this.#bridgeShape,
-      this.#userMoveArray,
-      this.retryCount,
-      upPatten,
-      downPatten,
-      resultString,
-    ];
+    console.log(
+      this.#retryCount,
+      this.#upPattern,
+      this.#downPattern,
+      resultString
+    );
+    return [this.#retryCount, this.#upPattern, this.#downPattern, resultString];
   }
 
   /**
@@ -80,6 +94,8 @@ class BridgeGame {
   retry() {
     this.retryCount += 1;
     this.#userMoveArray = [];
+    this.#upPattern = [];
+    this.#downPattern = [];
   }
 }
 

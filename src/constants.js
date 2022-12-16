@@ -24,9 +24,9 @@ const GAME_STATUS = {
   START: ' [',
   END: ' ]',
   LINE: ' | ',
-  POSSIBLE: ' O',
-  IMPOSSIBLE: ' X',
-  SPACE: '  ',
+  POSSIBLE: 'O',
+  IMPOSSIBLE: 'X',
+  SPACE: ' ',
   WIN: '성공',
   LOSE: '실패',
 };

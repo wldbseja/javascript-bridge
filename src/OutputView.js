@@ -13,10 +13,11 @@ const OutputView = {
    * <p>
    * 출력을 위해 필요한 메서드의 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
    */
+
   printMap(upPatten, downPatten) {
     const { START, LINE, END } = GAME_STATUS;
-    const upRow = `${START}${[upPatten].join(LINE)}${END}`;
-    const downRow = `${START}${[downPatten].join(LINE)}${END}`;
+    const upRow = `${START} ${upPatten.join(LINE)}${END}`;
+    const downRow = `${START} ${downPatten.join(LINE)}${END}`;
     MissionUtils.Console.print(upRow);
     MissionUtils.Console.print(downRow);
   },
@@ -26,7 +27,12 @@ const OutputView = {
    * <p>
    * 출력을 위해 필요한 메서드의 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
    */
-  printResult() {},
+  printResult(upPatten, downPatten, retryCount, resultString) {
+    MissionUtils.Console.print(PRINT_STRING.OUTPUT_GAME_RESULT);
+    this.printMap(upPatten, downPatten);
+    MissionUtils.Console.print(PRINT_STRING.OUTPUT_RESULT(resultString));
+    MissionUtils.Console.print(PRINT_STRING.OUTPUT_RETRY_COUNT(retryCount));
+  },
 };
 
 module.exports = OutputView;
