@@ -51,7 +51,17 @@ class BridgeGame {
     return [this.#upPattern, this.#downPattern];
   }
 
-  move() {}
+  move() {
+    let resultString;
+    const lastIndex = this.#userBridge.length - 1;
+    if (this.#randomBridge[lastIndex] !== this.#userBridge[lastIndex]) {
+      resultString = '실패';
+    } else {
+      resultString = '성공';
+    }
+
+    return resultString;
+  }
 
   /**
    * 사용자가 게임을 다시 시도할 때 사용하는 메서드
