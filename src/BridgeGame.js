@@ -29,9 +29,13 @@ class BridgeGame {
   makePattern(userMove) {
     this.#userBridge.push(userMove);
 
+    const lastIndex = this.#userBridge.length - 1;
+
     for (let i = 0; i < [userMove].length; i++) {
-      const u = this.#randomBridge[i] === GAME_ITEM.UP;
-      const d = this.#randomBridge[i] === GAME_ITEM.DOWN;
+      console.log(this.#randomBridge[lastIndex], this.#userBridge[lastIndex]);
+
+      const u = this.#randomBridge[lastIndex] === GAME_ITEM.UP;
+      const d = this.#randomBridge[lastIndex] === GAME_ITEM.DOWN;
 
       if (u && [userMove][i] === GAME_ITEM.UP) {
         this.#upPattern.push(GAME_ITEM.POSSIBLE);
@@ -49,9 +53,7 @@ class BridgeGame {
         this.#downPattern.push(GAME_ITEM.SPACE);
       }
     }
-
-    console.log('up', this.#upPattern, 'down', this.#downPattern);
-    return [this.#upPattern, this.#downPattern];
+    return [this.#upPattern, this.#downPattern, this.#randomBridge];
   }
 
   move() {
