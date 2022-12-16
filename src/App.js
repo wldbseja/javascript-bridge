@@ -22,7 +22,14 @@ class App {
     }
   }
 
-  handlingMoving(move) {}
+  handlingMoving(move) {
+    try {
+      this.validateMove(move);
+    } catch (error) {
+      MissionUtils.Console.print(ERROR_PRINT_STRING.ERROR_USER_INPUT);
+      InputView.readMoving(this.handlingMoving);
+    }
+  }
 
   play() {
     OutputView.printGameStart();
@@ -38,6 +45,11 @@ class App {
       )
     )
       throw Error(ERROR_PRINT_STRING.ERROR_BRIDGE_SIZE);
+  }
+
+  validateMove(move) {
+    if (!(move === 'U' || move === 'D'))
+      throw Error(ERROR_PRINT_STRING.ERROR_USER_INPUT);
   }
 }
 
