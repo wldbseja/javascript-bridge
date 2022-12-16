@@ -5,7 +5,9 @@ const BridgeGame = require('./BridgeGame');
 const { GAME_ITEM, ERROR_PRINT_STRING } = require('./constants');
 
 class App {
+  #bridgeSize;
   #bridgeGame;
+  #randomBridge;
   #userBridge;
   #upPattern;
   #downPattern;
@@ -16,6 +18,7 @@ class App {
 
   handlingBridgeSize(size) {
     try {
+      this.#bridgeSize = size;
       this.validateRangeSize(size);
       this.#bridgeGame = new BridgeGame(size);
       InputView.readMoving(this.handlingMoving);
@@ -33,9 +36,13 @@ class App {
       InputView.readMoving(this.handlingMoving);
       return;
     }
-    [this.#upPattern, this.#downPattern] = this.#bridgeGame.makePattern(move);
-    const result = this.#bridgeGame.move();
+    [this.#upPattern, this.#downPattern, this.#randomBridge] =
+      this.#bridgeGame.makePattern(move);
+    const [result, tryCount] = this.#bridgeGame.move();
+    this.decisionResult(result, tryCount);
   }
+
+  decisionResult(result, tryCount) {}
 
   play() {
     OutputView.printGameStart();
