@@ -1,6 +1,7 @@
 const MissionUtils = require('@woowacourse/mission-utils');
 const InputView = require('./InputView');
 const OutputView = require('./OutputView');
+const BridgeGame = require('./BridgeGame');
 const { GAME_ITEM, ERROR_PRINT_STRING } = require('./constants');
 
 class App {
@@ -10,10 +11,10 @@ class App {
 
   handlingBridgeSize(size) {
     try {
+      this.validateRangeSize(size);
+    } catch (error) {
       MissionUtils.Console.print(ERROR_PRINT_STRING.ERROR_BRIDGE_SIZE);
       InputView.readBridgeSize(this.handlingBridgeSize);
-    } catch (error) {
-      this.validateRangeSize(size);
     }
   }
 
