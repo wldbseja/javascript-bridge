@@ -8,17 +8,21 @@ class App {
   #bridgeGame;
   constructor() {
     this.handlingBridgeSize = this.handlingBridgeSize.bind(this);
+    this.handlingMoving = this.handlingMoving.bind(this);
   }
 
   handlingBridgeSize(size) {
     try {
       this.validateRangeSize(size);
       this.#bridgeGame = new BridgeGame(size);
+      InputView.readMoving(this.handlingMoving);
     } catch (error) {
       MissionUtils.Console.print(ERROR_PRINT_STRING.ERROR_BRIDGE_SIZE);
       InputView.readBridgeSize(this.handlingBridgeSize);
     }
   }
+
+  handlingMoving(move) {}
 
   play() {
     OutputView.printGameStart();
