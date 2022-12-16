@@ -36,13 +36,14 @@ class App {
       InputView.readMoving(this.handlingMoving);
       return;
     }
-    [this.#upPattern, this.#downPattern, this.#randomBridge] =
+    [this.#upPattern, this.#downPattern, this.#randomBridge, this.#userBridge] =
       this.#bridgeGame.makePattern(move);
-    const [result, tryCount] = this.#bridgeGame.move();
-    this.decisionResult(result, tryCount);
+    let [resultArray, tryCount] = this.#bridgeGame.move();
+
+    this.decisionResult(resultArray, tryCount);
   }
 
-  decisionResult(result, tryCount) {}
+  decisionResult(resultArray, tryCount) {}
 
   play() {
     OutputView.printGameStart();
