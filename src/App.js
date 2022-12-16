@@ -33,8 +33,8 @@ class App {
       InputView.readMoving(this.handlingMoving);
       return;
     }
-    [this.#upPattern, this.#downPattern, this.#userBridge] =
-      this.#bridgeGame.makePattern(move);
+    [this.#upPattern, this.#downPattern] = this.#bridgeGame.makePattern(move);
+    const result = this.#bridgeGame.move();
   }
 
   play() {
